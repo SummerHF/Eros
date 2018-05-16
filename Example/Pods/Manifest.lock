@@ -1,0 +1,22 @@
+PODS:
+  - Eros (0.1.0)
+  - Nimble (7.0.3)
+  - Quick (1.2.0)
+
+DEPENDENCIES:
+  - Eros (from `../`)
+  - Nimble (~> 7.0.2)
+  - Quick (~> 1.2.0)
+
+EXTERNAL SOURCES:
+  Eros:
+    :path: ../
+
+SPEC CHECKSUMS:
+  Eros: 9b9e6583610f198d83c22b4a9978cc25e0887438
+  Nimble: 7f5a9c447a33002645a071bddafbfb24ea70e0ac
+  Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
+
+PODFILE CHECKSUM: 81eabd241d6c7124ced6050379b297642477f30d
+
+COCOAPODS: 1.4.0

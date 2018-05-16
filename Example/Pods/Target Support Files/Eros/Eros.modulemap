@@ -1,0 +1,6 @@
+framework module Eros {
+  umbrella header "Eros-umbrella.h"
+
+  export *
+  module * { export * }
+}

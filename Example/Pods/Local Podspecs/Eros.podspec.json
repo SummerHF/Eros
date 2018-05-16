@@ -1,0 +1,22 @@
+{
+  "name": "Eros",
+  "version": "0.1.0",
+  "summary": "A short description of Eros.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/SummerHF/Eros",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "SummerHF": "391565521@qq.com"
+  },
+  "source": {
+    "git": "https://github.com/SummerHF/Eros.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "Eros/Classes/**/*"
+}

@@ -1,0 +1,6 @@
+framework module Pods_Eros_Tests {
+  umbrella header "Pods-Eros_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}
