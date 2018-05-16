@@ -1,0 +1,18 @@
+1. add .swiftlint.yml doesn't work?
+------>
+open project->new empty file->name it ".swiftlint.yml"-> add rules ->solve problem
+
+2.
+
+
+
+
+
+
+------------------------------------------------------------------------------------------
+progress
+2018/5/16
+DispatchQueue+Eros(GCD的拓展)
+Notifications(通知的拓展)
+Timeline(时间分析)
+NetworkReachabilityManager(网络状况处理)

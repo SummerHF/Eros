@@ -15,6 +15,7 @@
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		70EC8FCF7392FE9C05B1BD9B /* Pods_Eros_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74CFA142D7359BDB51F1A49E /* Pods_Eros_Example.framework */; };
 		C4F7B2D920ABDB7700B2EF19 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = C4F7B2D820ABDB7700B2EF19 /* .swiftlint.yml */; };
+		C4F7B2DB20ABDC3600B2EF19 /* record in Resources */ = {isa = PBXBuildFile; fileRef = C4F7B2DA20ABDC3600B2EF19 /* record */; };
 		F1DFFF405954789C52003500 /* Pods_Eros_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183F389F664BB465FA34253E /* Pods_Eros_Tests.framework */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +47,7 @@
 		B766A1E558D3D39C8EC43E26 /* Pods-Eros_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Eros_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Eros_Tests/Pods-Eros_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		C1C25E0F808200DEBBBC80E0 /* Pods-Eros_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Eros_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Eros_Example/Pods-Eros_Example.release.xcconfig"; sourceTree = "<group>"; };
 		C4F7B2D820ABDB7700B2EF19 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
+		C4F7B2DA20ABDC3600B2EF19 /* record */ = {isa = PBXFileReference; lastKnownFileType = text; path = record; sourceTree = "<group>"; };
 		C64CB67D9E5488E738E567CA /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		E4D624BDADBB24876BF477FA /* Pods-Eros_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Eros_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Eros_Tests/Pods-Eros_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		F605F2BF51F3273FE1C8C385 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
+				C4F7B2DA20ABDC3600B2EF19 /* record */,
 				C4F7B2D820ABDB7700B2EF19 /* .swiftlint.yml */,
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
 				607FACD21AFB9204008FA782 /* Example for Eros */,
@@ -252,6 +255,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4F7B2DB20ABDC3600B2EF19 /* record in Resources */,
 				C4F7B2D920ABDB7700B2EF19 /* .swiftlint.yml in Resources */,
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
