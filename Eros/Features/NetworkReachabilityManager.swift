@@ -62,24 +62,23 @@ open class NetworkReachablityManager {
 
     // MARK: - Properties
 
-//    open var isReachable: Bool { return }
-//    open var isReachableOnWWAN: Bool { return networkReachabilityStatus == .reachable(.wwan)}
-
-//    open var isReachableOnEthernetOrWifi: Bool
-
+    open var isReachable: Bool { return isReachableOnWWAN || isReachableOnEthernetOrWifi }
+    open var isReachableOnWWAN: Bool { return networkReachabilityStatus == .reachable(.wwan)}
+    open var isReachableOnEthernetOrWifi: Bool { return networkReachabilityStatus == .reachable(.ethernetOrWifi)}
+    /// 执行`Listener`闭包的队列, 默认`main`
+    open var listenerQueue: DispatchQueue = DispatchQueue.main
     /// 当前网络状态
     open var networkReachabilityStatus: NetworkReachabilityStatus {
         guard let flags = self.flags else { return .unknown }
         return networkReachabilityStatusForFlags(flags)
     }
-
-    /// 执行`Listener`闭包的队列, 默认`main`
-    open var listenerQueue: DispatchQueue = DispatchQueue.main
-
+    
+    /// 当网络状况发生改变的时候回调的闭包
+    open var listener: Listener?
     /// allows an application to determine the status of a system's current network configuration and the reachability of a target host
     private let reachability: SCNetworkReachability
     open var previousFlags: SCNetworkReachabilityFlags
-
+    
     open var flags: SCNetworkReachabilityFlags? {
         var flags = SCNetworkReachabilityFlags()
         if SCNetworkReachabilityGetFlags(reachability, &flags) {
@@ -88,30 +87,72 @@ open class NetworkReachablityManager {
         return nil
     }
 
-    // MARK: - init
+    // MARK: - Initialization
 
+    /// 根据指定的主机地址创建一个`NetworkReachablityManager`
+    ///
+    /// - parameter host: 用来评估网络状态的主机地址
+    /// - return: `NetworkReachablityManager` instance
     public convenience init?(host: String) {
         guard let reachability = SCNetworkReachabilityCreateWithName(nil, host) else { return nil}
         self.init(reachability: reachability)
     }
 
+    /// 创建一个`NetworkReachabilityManager`实例监控地址0.0.0.0。
+    
+    /// `NetworkReachablityManager`视地址`0.0.0.0`为特殊的标记, 以此来监控通用路由.
+    ///
+    /// - return: `NetworkReachablityManager` instance
     public convenience init?() {
         var address = sockaddr_in()
         address.sin_len = UInt8(MemoryLayout<sockaddr_in>.size)
         address.sin_family = sa_family_t(AF_INET)
         guard let reachability = withUnsafePointer(to: &address, { pointer in
-            return pointer.withMemoryRebound(to: sockaddr.self, capacity: MemoryLayout<sockaddr>.size) {
-                return SCNetworkReachabilityCreateWithAddress(nil, &0)
-            }
+            return pointer.withMemoryRebound(to: sockaddr.self, capacity: MemoryLayout<sockaddr>.size, { 
+                return SCNetworkReachabilityCreateWithAddress(nil, $0)
+            })
         }) else {
             return nil
         }
         self.init(reachability: reachability)
     }
-
+    
+    /// 私有的指定初始化方法
     private init(reachability: SCNetworkReachability) {
         self.reachability = reachability
         self.previousFlags = SCNetworkReachabilityFlags()
+    }
+
+    // MARK: - Methods
+    @discardableResult
+    open func startListening() -> Bool {
+        var context = SCNetworkReachabilityContext(version: 0, info: nil, retain: nil, release: nil, copyDescription: nil)
+        context.info = Unmanaged.passRetained(self).toOpaque()
+        /// 此处监听网络状况变化
+        let callbackEnabled = SCNetworkReachabilitySetCallback(reachability, 
+         { (_, flags, info) in
+            let reachability = Unmanaged<NetworkReachablityManager>.fromOpaque(info!).takeUnretainedValue()
+            reachability.notifyListener(flags)
+        }, &context)
+        let queueEnabled = SCNetworkReachabilitySetDispatchQueue(reachability, listenerQueue)
+        /// 首次创建立马回调网络状态
+        listenerQueue.async {
+            self.previousFlags = SCNetworkReachabilityFlags()
+            self.notifyListener(self.flags ?? SCNetworkReachabilityFlags())
+        }
+        return callbackEnabled && queueEnabled
+    }
+    
+    func notifyListener(_ flags: SCNetworkReachabilityFlags) {
+        guard previousFlags != flags else { return }
+        previousFlags = flags
+        listener?(networkReachabilityStatusForFlags(flags))
+    }
+    
+    /// 停止监听网络状态的变化
+    open func stopListening() {
+        SCNetworkReachabilitySetCallback(reachability, nil, nil)
+        SCNetworkReachabilitySetDispatchQueue(reachability, nil)
     }
 
     /// 网络状态 `.notReachable`, `.ethernetOrWifi`, `.wwan`
@@ -131,6 +172,31 @@ open class NetworkReachablityManager {
         let canConnectAutomatically = flags.contains(.connectionOnDemand) || flags.contains(.connectionOnTraffic)
         let canConnectWithoutUserInteraction = canConnectAutomatically && !flags.contains(.interventionRequired)
         return isReachable && (!needsConnection || canConnectWithoutUserInteraction)
+    }
+}
+
+extension NetworkReachablityManager.NetworkReachabilityStatus: Equatable {}
+
+/// 比较网络状态是否相等
+/// - paramter lhs: 左边的网络状态
+/// - paramter rhs: 右边的网络状态
+/// 
+/// - return: `true`两把相等, `false`两边不相等
+
+public func ==(
+    lhs: NetworkReachablityManager.NetworkReachabilityStatus, 
+    rhs: NetworkReachablityManager.NetworkReachabilityStatus)
+    -> Bool 
+{
+    switch (lhs, rhs) {
+    case (.unknown, .unknown):
+        return true 
+    case (.notReachable, .notReachable):
+        return true 
+    case let (.reachable(lhsConnectionType), .reachable(rhsConnectionType)):
+        return lhsConnectionType == rhsConnectionType
+    default:
+        return false 
     }
 }
 
