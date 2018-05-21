@@ -106,14 +106,14 @@
 		C2467221FCD579800B9CD8FBBDB10B4D /* CwlCatchBadInstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE66AEC1DADAB5A835D219A5EC52ABA /* CwlCatchBadInstruction.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		C444DBA620AC08B5005DD799 /* DispatchQueue+Eros.swift in Sources */ = {isa = PBXBuildFile; fileRef = C444DBA420AC08B5005DD799 /* DispatchQueue+Eros.swift */; };
 		C444DBA820AC094D005DD799 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = C444DBA720AC094D005DD799 /* Notifications.swift */; };
-		C444DBAB20AC0DBD005DD799 /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = C444DBAA20AC0DBD005DD799 /* Timeline.swift */; };
-		C444DBAD20AC1D40005DD799 /* NetworkReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C444DBAC20AC1D40005DD799 /* NetworkReachabilityManager.swift */; };
 		C462F5A11C72DF76AE8631C9F39D031A /* QuickTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8E430D83F3CC7F72E348A0B222C46F /* QuickTestSuite.swift */; };
-		C4EF012C20AEA32B0008D6A9 /* ServerTrustPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EF012B20AEA32B0008D6A9 /* ServerTrustPolicy.swift */; };
 		C8320A6164C870ADDB8A855ADEBBBDC9 /* Equal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A5A2213F831D11D721E17AA14BFB58 /* Equal.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		C93132EF7B26D9E1F039545C1F8A6FD6 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEA1DF1C7C22E7B20D2DC30FB9D3EF1 /* Configuration.swift */; };
 		CCDAF11E7AF29E720C587B038145F622 /* BeginWith.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC8DBE433A202DCF807B91BB5557F6D /* BeginWith.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		CF55697859D633C852C3586384647EB6 /* NimbleXCTestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240CEA0915AA3241F6A49CB65CEC8767 /* NimbleXCTestHandler.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
+		D0C7A64220B303CB0074B5A0 /* NetworkReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C7A63F20B303CB0074B5A0 /* NetworkReachabilityManager.swift */; };
+		D0C7A64320B303CB0074B5A0 /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C7A64020B303CB0074B5A0 /* Timeline.swift */; };
+		D0C7A64420B303CB0074B5A0 /* ServerTrustPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C7A64120B303CB0074B5A0 /* ServerTrustPolicy.swift */; };
 		D9E62C41794D0B5D2CD68CA92C4BA836 /* mach_excServer.c in Sources */ = {isa = PBXBuildFile; fileRef = 679FFD5386CAB1887F96D8FF6D84B7B8 /* mach_excServer.c */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		DF026F6F406A4FB6CEA63B0A4B9E27DD /* AllPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D7B54C77385B78FFA011C64D94E436 /* AllPass.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		E167122C298AC9A8F7E39E580171F092 /* QCKDSL.m in Sources */ = {isa = PBXBuildFile; fileRef = 12989D830FCE4AEF54A357265111CAEF /* QCKDSL.m */; };
@@ -277,9 +277,6 @@
 		BFA0C963E693ACE2187A4123D8B128CB /* Pods-Eros_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Eros_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		C444DBA420AC08B5005DD799 /* DispatchQueue+Eros.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Eros.swift"; sourceTree = "<group>"; };
 		C444DBA720AC094D005DD799 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
-		C444DBAA20AC0DBD005DD799 /* Timeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timeline.swift; sourceTree = "<group>"; };
-		C444DBAC20AC1D40005DD799 /* NetworkReachabilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkReachabilityManager.swift; sourceTree = "<group>"; };
-		C4EF012B20AEA32B0008D6A9 /* ServerTrustPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerTrustPolicy.swift; sourceTree = "<group>"; };
 		C57921338FECDDCDAAC88A57C2055737 /* CwlCatchException.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CwlCatchException.h; path = Carthage/Checkouts/CwlCatchException/Sources/CwlCatchExceptionSupport/include/CwlCatchException.h; sourceTree = "<group>"; };
 		C949E12BA82E3B6636449B775694F4F3 /* CwlCatchException.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CwlCatchException.m; path = Carthage/Checkouts/CwlCatchException/Sources/CwlCatchExceptionSupport/CwlCatchException.m; sourceTree = "<group>"; };
 		CAB52415DA15D60348D226639C322706 /* CwlPreconditionTesting.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CwlPreconditionTesting.h; path = Carthage/Checkouts/CwlPreconditionTesting/Sources/CwlPreconditionTesting/Mach/CwlPreconditionTesting.h; sourceTree = "<group>"; };
@@ -287,6 +284,9 @@
 		CCE295D4D0ED3F1666C5921320F0E2C6 /* ToSucceed.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ToSucceed.swift; path = Sources/Nimble/Matchers/ToSucceed.swift; sourceTree = "<group>"; };
 		CE1C0594000452979B62B1798B1A59E8 /* Contain.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Contain.swift; path = Sources/Nimble/Matchers/Contain.swift; sourceTree = "<group>"; };
 		CE31DE883347DA5FE6B7F79F715D5D71 /* Nimble.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Nimble.xcconfig; sourceTree = "<group>"; };
+		D0C7A63F20B303CB0074B5A0 /* NetworkReachabilityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkReachabilityManager.swift; sourceTree = "<group>"; };
+		D0C7A64020B303CB0074B5A0 /* Timeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timeline.swift; sourceTree = "<group>"; };
+		D0C7A64120B303CB0074B5A0 /* ServerTrustPolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerTrustPolicy.swift; sourceTree = "<group>"; };
 		D1069982ADF895C175FCB5A4904199D9 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D31FA66A5FC0844A36FC1358ACE2220C /* BeVoid.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BeVoid.swift; path = Sources/Nimble/Matchers/BeVoid.swift; sourceTree = "<group>"; };
 		D685C0D509328CD8778F99DD53A49A48 /* Closures.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Closures.swift; path = Sources/Quick/Hooks/Closures.swift; sourceTree = "<group>"; };
@@ -404,7 +404,7 @@
 		628B933003D9A1C2E34127680C48F577 /* Eros */ = {
 			isa = PBXGroup;
 			children = (
-				C444DBA920AC0DA6005DD799 /* Features */,
+				D0C7A63E20B303CB0074B5A0 /* Features */,
 				C444DBA520AC08B5005DD799 /* Core */,
 				C444DBA320AC08B5005DD799 /* Extensions */,
 				CF51726590EC28EE94DDE26D8A6BA62A /* Pod */,
@@ -593,17 +593,6 @@
 			path = Eros/Classes/Core;
 			sourceTree = "<group>";
 		};
-		C444DBA920AC0DA6005DD799 /* Features */ = {
-			isa = PBXGroup;
-			children = (
-				C444DBAA20AC0DBD005DD799 /* Timeline.swift */,
-				C444DBAC20AC1D40005DD799 /* NetworkReachabilityManager.swift */,
-				C4EF012B20AEA32B0008D6A9 /* ServerTrustPolicy.swift */,
-			);
-			name = Features;
-			path = Eros/Features;
-			sourceTree = "<group>";
-		};
 		CF51726590EC28EE94DDE26D8A6BA62A /* Pod */ = {
 			isa = PBXGroup;
 			children = (
@@ -630,6 +619,17 @@
 			);
 			name = "Pods-Eros_Tests";
 			path = "Target Support Files/Pods-Eros_Tests";
+			sourceTree = "<group>";
+		};
+		D0C7A63E20B303CB0074B5A0 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				D0C7A63F20B303CB0074B5A0 /* NetworkReachabilityManager.swift */,
+				D0C7A64020B303CB0074B5A0 /* Timeline.swift */,
+				D0C7A64120B303CB0074B5A0 /* ServerTrustPolicy.swift */,
+			);
+			name = Features;
+			path = Eros/Classes/Features;
 			sourceTree = "<group>";
 		};
 		D803EB5B15D4EAD4461BD11F3EF5188C /* Quick */ = {
@@ -974,11 +974,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C444DBAD20AC1D40005DD799 /* NetworkReachabilityManager.swift in Sources */,
-				C444DBAB20AC0DBD005DD799 /* Timeline.swift in Sources */,
 				C444DBA820AC094D005DD799 /* Notifications.swift in Sources */,
-				C4EF012C20AEA32B0008D6A9 /* ServerTrustPolicy.swift in Sources */,
 				C444DBA620AC08B5005DD799 /* DispatchQueue+Eros.swift in Sources */,
+				D0C7A64220B303CB0074B5A0 /* NetworkReachabilityManager.swift in Sources */,
+				D0C7A64420B303CB0074B5A0 /* ServerTrustPolicy.swift in Sources */,
+				D0C7A64320B303CB0074B5A0 /* Timeline.swift in Sources */,
 				7AAF5553D9FC7676E69553D1F948742A /* Eros-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
