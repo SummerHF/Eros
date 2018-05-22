@@ -90,7 +90,7 @@ public enum ServerTrustPolicy {
 //        }
 //        Prints: "0 1 2 8 9 15 16"
 
-        var certificates = [SecCertificate]()
+        var certificates: [SecCertificate] = []
         let paths = Set([".cer", ".CER", ".crt", ".CRT", ".der", ".DER"].map { fileExtension in
             bundle.paths(forResourcesOfType: fileExtension, inDirectory: nil)
         }.joined())
@@ -103,10 +103,183 @@ public enum ServerTrustPolicy {
         return certificates
     }
 
-    
+    // MARK: - Bundle location
+
+    /// 通过搜索以`.cer`结尾的文件, 返回bundle中所有公钥
+
+    /// - parameter bundle: 包含`.cer`的bundle
+    ///
+    /// - return: `bundle`中的公钥
+    public static func publicKeys(in bundle: Bundle = Bundle.main) -> [SecKey] {
+        var publicKeys: [SecKey] = []
+        for certificate in certificates(in: bundle) {
+            if let publicKey = publicKey(for: certificate) {
+                publicKeys.append(publicKey)
+            }
+        }
+        return publicKeys
+    }
+
+
+    // MARK: - Evaluation
+
+    /// 验证给定域名的服务器信任情况
+
+    /// - parameter serverTrust: 鉴定信任情况
+    /// - parameter forHost: 域名
+    public func evaluate(_ serverTrust: SecTrust, forHost host: String) -> Bool {
+        var serverTrustIsValid = false
+        switch self {
+        case let .performDefaultEvaluation(validateHost):
+            let policy = SecPolicyCreateSSL(true, validateHost ? host as CFString : nil)
+            SecTrustSetPolicies(serverTrust, policy)
+            serverTrustIsValid = trustIsValid(serverTrust)
+        case let .performRevokedEvaluation(validateHost, revocationFlags):
+            let defaultPolicy = SecPolicyCreateSSL(true, validateHost ? host as CFString : nil)
+            let revokedPolicy = SecPolicyCreateRevocation(revocationFlags)
+            SecTrustSetPolicies(serverTrust, [defaultPolicy, revokedPolicy] as CFTypeRef)
+            serverTrustIsValid = trustIsValid(serverTrust)
+        case let .pinCertificates(certificates, validateCertificateChain, validateHost):
+            if validateCertificateChain {
+                let policy = SecPolicyCreateSSL(true, validateHost ? host as CFString : nil)
+                SecTrustSetPolicies(serverTrust, policy)
+                SecTrustSetAnchorCertificates(serverTrust, certificates as CFArray)
+                SecTrustSetAnchorCertificatesOnly(serverTrust, true)
+                serverTrustIsValid = trustIsValid(serverTrust)
+            } else {
+                let serverCertificationesDataArray = certificateData(for: serverTrust)
+                let pinnedCertificationesDataArray = certificateData(for: certificates)
+                /// 验证证书合法性
+                outerLoop: for serverCertificateData in serverCertificationesDataArray {
+                    for pinnedCertificateData in pinnedCertificationesDataArray {
+                        if serverCertificateData == pinnedCertificateData {
+                            serverTrustIsValid = true
+                            break outerLoop
+                        }
+                    }
+                }
+            }
+        case let .pinPublicKeys(publicKeys, validateCertificationChain, validateHost):
+            var certificateChainEvaluationPassed = true
+            if validateCertificationChain {
+                let policy = SecPolicyCreateSSL(true, validateHost ? host as CFString : nil)
+                SecTrustSetPolicies(serverTrust, policy)
+                certificateChainEvaluationPassed = trustIsValid(serverTrust)
+            }
+            if certificateChainEvaluationPassed {
+                outerLoop: for serverPublicKey in ServerTrustPolicy.publicKey(for: serverTrust) as [AnyObject] {
+                    for publicKey in publicKeys as [AnyObject] {
+                        if serverPublicKey.isEqual(publicKey) {
+                            serverTrustIsValid = true
+                            break outerLoop
+                        }
+                    }
+                }
+            }
+        case .disableEvaluation:
+            serverTrustIsValid = true
+        case let .customEvaluation(closure):
+            serverTrustIsValid = closure(serverTrust, host)
+        }
+        return serverTrustIsValid
+    }
+
+
+    // MARK: - Certificate Data
+
+    private func certificateData(for trust: SecTrust) -> [Data] {
+        var certificates: [SecCertificate] = []
+        for index in 0..<SecTrustGetCertificateCount(trust) {
+            if let certificate = SecTrustGetCertificateAtIndex(trust, index) {
+                certificates.append(certificate)
+            }
+        }
+        return certificateData(for: certificates)
+    }
+
+    private func certificateData(for certificates: [SecCertificate]) -> [Data] {
+        return certificates.map { SecCertificateCopyData($0) as Data}
+    }
+
+    // MARK: - Private trust validation
+
+    /// 信任是否有效
+    private func trustIsValid(_ trust: SecTrust) -> Bool {
+        var isValid = false
+        var result = SecTrustResultType.invalid
+        let status = SecTrustEvaluate(trust, &result)
+        if status == errSecSuccess {
+            let unspecified = SecTrustResultType.unspecified
+            let proceed = SecTrustResultType.proceed
+            isValid = result == unspecified || result == proceed
+        }
+        return isValid
+    }
+
+    // MARK: - Private publicKey Extension
+
+    /// `SecCertificate` to `SecKey`
+    /// 通过证书获取公钥
+    private static func publicKey(for certificate: SecCertificate) -> SecKey? {
+        var publicKey: SecKey?
+        /// Returns a policy object for the default X.509 policy
+        let policy = SecPolicyCreateBasicX509()
+        var trust: SecTrust?
+        let trustCreationStatus = SecTrustCreateWithCertificates(certificate, policy, &trust)
+        if  let trust = trust, trustCreationStatus == errSecSuccess {
+            publicKey = SecTrustCopyPublicKey(trust)
+        }
+        return publicKey
+    }
+
+    private static func publicKey(for trust: SecTrust) -> [SecKey] {
+        var publicKeys: [SecKey] = []
+        for index in 0..<SecTrustGetCertificateCount(trust) {
+            if let certificate = SecTrustGetCertificateAtIndex(trust, index),
+            let publicKey = publicKey(for: certificate) {
+                publicKeys.append(publicKey)
+            }
+        }
+        return publicKeys
+    }
 }
 
 /// 负责管理`ServerTrustPolicy`对象到给定主机的映射
 open class ServerTrustPolicyManager {
+    /// 指定域名的信任管理映射
+    open let politicis: [String: ServerTrustPolicy]
 
+    /// 初始化方法
+
+    /// 通过指定的信任策略实例化`ServerTrustPolicyManager`
+    /// - parameter politicis: 信任策略字典
+    /// - returns: `ServerTrustPolicyManager` 实例
+    public init(politicis: [String: ServerTrustPolicy]) {
+        self.politicis = politicis
+    }
+
+    /// 通过指定域名返回信任策略
+    /// - parameter host: 域名
+    /// - returns: 服务器信任策略
+    open func serverTrustPolicy(forhost host: String) -> ServerTrustPolicy? {
+        return politicis[host]
+    }
+}
+
+// MARK: - URLSession Extensions
+
+/// 为`URLSession`拓展一个`serverTrustPolicyManager`属性
+extension URLSession {
+    private struct AssociatedKeys {
+        static var managerKey = "URLSession.ServerTrustPolicyManager"
+    }
+
+    var serverTrustPolicyManager: ServerTrustPolicyManager? {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKeys.managerKey) as? ServerTrustPolicyManager
+        }
+        set (manager) {
+            objc_setAssociatedObject(self, &AssociatedKeys.managerKey, manager, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
 }
