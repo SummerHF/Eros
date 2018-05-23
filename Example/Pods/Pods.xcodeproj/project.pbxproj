@@ -107,6 +107,9 @@
 		C444DBA620AC08B5005DD799 /* DispatchQueue+Eros.swift in Sources */ = {isa = PBXBuildFile; fileRef = C444DBA420AC08B5005DD799 /* DispatchQueue+Eros.swift */; };
 		C444DBA820AC094D005DD799 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = C444DBA720AC094D005DD799 /* Notifications.swift */; };
 		C462F5A11C72DF76AE8631C9F39D031A /* QuickTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8E430D83F3CC7F72E348A0B222C46F /* QuickTestSuite.swift */; };
+		C4B283F420B50B5F005F5318 /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B283F320B50B5F005F5318 /* ParameterEncoding.swift */; };
+		C4B283F620B511B5005F5318 /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B283F520B511B5005F5318 /* MultipartFormData.swift */; };
+		C4B283F820B53713005F5318 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B283F720B53713005F5318 /* Request.swift */; };
 		C4BD784520B3FB7300D8EF13 /* NetworkReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BD784120B3FB7300D8EF13 /* NetworkReachabilityManager.swift */; };
 		C4BD784620B3FB7300D8EF13 /* ServerTrustPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BD784220B3FB7300D8EF13 /* ServerTrustPolicy.swift */; };
 		C4BD784720B3FB7300D8EF13 /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BD784320B3FB7300D8EF13 /* Timeline.swift */; };
@@ -280,6 +283,9 @@
 		BFA0C963E693ACE2187A4123D8B128CB /* Pods-Eros_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Eros_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		C444DBA420AC08B5005DD799 /* DispatchQueue+Eros.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Eros.swift"; sourceTree = "<group>"; };
 		C444DBA720AC094D005DD799 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		C4B283F320B50B5F005F5318 /* ParameterEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterEncoding.swift; sourceTree = "<group>"; };
+		C4B283F520B511B5005F5318 /* MultipartFormData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormData.swift; sourceTree = "<group>"; };
+		C4B283F720B53713005F5318 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		C4BD784120B3FB7300D8EF13 /* NetworkReachabilityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkReachabilityManager.swift; sourceTree = "<group>"; };
 		C4BD784220B3FB7300D8EF13 /* ServerTrustPolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerTrustPolicy.swift; sourceTree = "<group>"; };
 		C4BD784320B3FB7300D8EF13 /* Timeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timeline.swift; sourceTree = "<group>"; };
@@ -596,6 +602,8 @@
 			children = (
 				C444DBA720AC094D005DD799 /* Notifications.swift */,
 				C4FE418D20B290FC0064E656 /* AFError.swift */,
+				C4B283F320B50B5F005F5318 /* ParameterEncoding.swift */,
+				C4B283F720B53713005F5318 /* Request.swift */,
 			);
 			name = Core;
 			path = Eros/Classes/Core;
@@ -608,6 +616,7 @@
 				C4BD784220B3FB7300D8EF13 /* ServerTrustPolicy.swift */,
 				C4BD784320B3FB7300D8EF13 /* Timeline.swift */,
 				C4BD784420B3FB7300D8EF13 /* Validation.swift */,
+				C4B283F520B511B5005F5318 /* MultipartFormData.swift */,
 			);
 			name = Features;
 			path = Eros/Classes/Features;
@@ -984,9 +993,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4BD784A20B3FB8300D8EF13 /* Eros.swift in Sources */,
+				C4B283F820B53713005F5318 /* Request.swift in Sources */,
 				C4BD784520B3FB7300D8EF13 /* NetworkReachabilityManager.swift in Sources */,
+				C4B283F420B50B5F005F5318 /* ParameterEncoding.swift in Sources */,
 				C4BD784720B3FB7300D8EF13 /* Timeline.swift in Sources */,
 				C4FE418E20B290FC0064E656 /* AFError.swift in Sources */,
+				C4B283F620B511B5005F5318 /* MultipartFormData.swift in Sources */,
 				C444DBA820AC094D005DD799 /* Notifications.swift in Sources */,
 				C4BD784620B3FB7300D8EF13 /* ServerTrustPolicy.swift in Sources */,
 				C444DBA620AC08B5005DD799 /* DispatchQueue+Eros.swift in Sources */,
