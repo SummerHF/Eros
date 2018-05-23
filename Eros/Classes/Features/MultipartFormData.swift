@@ -362,6 +362,74 @@ open class MultipartFormData {
         }
         return encoded
     }
+    
+    // MARK: - Private - Writing Body Part To Output Stream
+    
+    private func write(_ bodyPary: BodyPart, to outPutStream: OutputStream) throws {
+        try writeInitialBoundaryData(for: bodyPary, to: outPutStream)
+        try writeHeaderData(for: bodyPary, to: outPutStream)
+        try writeBodyStream(for: bodyPary, to: outPutStream)
+        try writeFinalBoundaryData(for: bodyPary, to: outPutStream)
+    }
+    
+    private func writeInitialBoundaryData(for bodyPart: BodyPart, to outPutStream: OutputStream) throws {
+        let initialData = bodyPart.hasInitialBoundary ? initalBoundaryData() : encapsulatedBoundaryData()
+        return try write(initialData, to: outPutStream)
+    }
+    
+    private func writeHeaderData(for bodyPart: BodyPart, to outPutStream: OutputStream) throws {
+        let headerData = encodeHeaders(for: bodyPart)
+        return try write(headerData, to: outPutStream)
+    }
+    
+    private func writeBodyStream(for bodyPart: BodyPart, to outPutStream: OutputStream) throws {
+        let inputStream = bodyPart.bodyStream
+        inputStream.open()
+        defer { inputStream.close() }
+        while inputStream.hasBytesAvailable {
+            var buffer = [UInt8](repeating: 0, count: streamBufferSize)
+            let bytesRead = inputStream.read(&buffer, maxLength: streamBufferSize)
+            if  let error = inputStream.streamError {
+                throw AFError.multipartEncodingFailed(reason: .inputStreamReadFailed(error: error))
+            }
+            if bytesRead > 0 {
+                if buffer.count != bytesRead {
+                    buffer = Array(buffer[0..<bytesRead])
+                    try write(&buffer, to: outPutStream)
+                }
+            } else {
+                break
+            }
+        }
+    }
+    
+    private func writeFinalBoundaryData(for bodyPart: BodyPart, to outPutStream: OutputStream) throws {
+        if bodyPart.hasFinalBoundary {
+            return try write(finalBoundaryData(), to: outPutStream)
+        }
+    }
+    
+    // MARK: - Private - Write Buffered Data to OutPutStream
+    
+    private func write(_ data: Data, to outPutStream: OutputStream) throws {
+        var buffer = [UInt8](repeating: 0, count: data.count)
+        data.copyBytes(to: &buffer, count: data.count)
+        return try write(&buffer, to: outPutStream)
+    }
+    
+    private func write(_ buffer: inout [UInt8], to outPutStream: OutputStream) throws {
+        var bytesToWrite = buffer.count
+        while bytesToWrite > 0, outPutStream.hasSpaceAvailable {
+            let bytesWritten = outPutStream.write(buffer, maxLength: bytesToWrite)
+            if let error = outPutStream.streamError {
+                throw AFError.multipartEncodingFailed(reason: .outPutStreamWriteFailed(error: error))
+            }
+            bytesToWrite -= bytesWritten
+            if bytesToWrite > 0 {
+                buffer = Array(buffer[bytesWritten..<buffer.count])
+            }
+        }
+    }
 
     // MARK: - Private - Boundary Encoding
 
