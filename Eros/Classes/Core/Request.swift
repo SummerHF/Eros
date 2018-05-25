@@ -27,5 +27,10 @@
 
 import Foundation
 
+public protocol RequestAdapter {
+    
+    func adapt(_ urlRequest: URLRequest) throws -> URLRequest
+}
+
 /// a dictionary of headers to apply to a `URLRequst`
 public typealias HTTPHeaders = [String: String]

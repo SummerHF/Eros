@@ -115,6 +115,7 @@
 		C4BD784720B3FB7300D8EF13 /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BD784320B3FB7300D8EF13 /* Timeline.swift */; };
 		C4BD784820B3FB7300D8EF13 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BD784420B3FB7300D8EF13 /* Validation.swift */; };
 		C4BD784A20B3FB8300D8EF13 /* Eros.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BD784920B3FB8300D8EF13 /* Eros.swift */; };
+		C4C8F51A20B6548C008793D8 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C8F51920B6548C008793D8 /* Result.swift */; };
 		C4FE418E20B290FC0064E656 /* AFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FE418D20B290FC0064E656 /* AFError.swift */; };
 		C8320A6164C870ADDB8A855ADEBBBDC9 /* Equal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A5A2213F831D11D721E17AA14BFB58 /* Equal.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		C93132EF7B26D9E1F039545C1F8A6FD6 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEA1DF1C7C22E7B20D2DC30FB9D3EF1 /* Configuration.swift */; };
@@ -291,6 +292,7 @@
 		C4BD784320B3FB7300D8EF13 /* Timeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timeline.swift; sourceTree = "<group>"; };
 		C4BD784420B3FB7300D8EF13 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		C4BD784920B3FB8300D8EF13 /* Eros.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Eros.swift; path = Eros/Classes/Eros.swift; sourceTree = "<group>"; };
+		C4C8F51920B6548C008793D8 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		C4FE418D20B290FC0064E656 /* AFError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AFError.swift; sourceTree = "<group>"; };
 		C57921338FECDDCDAAC88A57C2055737 /* CwlCatchException.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CwlCatchException.h; path = Carthage/Checkouts/CwlCatchException/Sources/CwlCatchExceptionSupport/include/CwlCatchException.h; sourceTree = "<group>"; };
 		C949E12BA82E3B6636449B775694F4F3 /* CwlCatchException.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CwlCatchException.m; path = Carthage/Checkouts/CwlCatchException/Sources/CwlCatchExceptionSupport/CwlCatchException.m; sourceTree = "<group>"; };
@@ -604,6 +606,7 @@
 				C4FE418D20B290FC0064E656 /* AFError.swift */,
 				C4B283F320B50B5F005F5318 /* ParameterEncoding.swift */,
 				C4B283F720B53713005F5318 /* Request.swift */,
+				C4C8F51920B6548C008793D8 /* Result.swift */,
 			);
 			name = Core;
 			path = Eros/Classes/Core;
@@ -993,6 +996,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4BD784A20B3FB8300D8EF13 /* Eros.swift in Sources */,
+				C4C8F51A20B6548C008793D8 /* Result.swift in Sources */,
 				C4B283F820B53713005F5318 /* Request.swift in Sources */,
 				C4BD784520B3FB7300D8EF13 /* NetworkReachabilityManager.swift in Sources */,
 				C4B283F420B50B5F005F5318 /* ParameterEncoding.swift in Sources */,

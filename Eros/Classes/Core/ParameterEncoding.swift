@@ -57,9 +57,14 @@ public enum HTTPMethod: String {
 /// 应用到`URLRequest`上的参数字典
 public typealias Parameters = [String: Any]
 
-/// 
+/// 用于定义如何将一组参数应用于“URLRequest”的类型
 public protocol ParameterEncoding {
 
+    /// 通过参数构建URL request
+    ///
+    /// - parameter urlRequest: the url request
+    /// - parameter parameters: 
+    func encode(_ urlRequest: URLRequestConvertible, with parameters: Parameters?) throws -> URLRequest
 }
 
 
